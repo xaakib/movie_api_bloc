@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_api_bloc/src/services/service_api.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  ServicesApi servicesApi = ServicesApi();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,18 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Center(child: Text("Movies")),
+          Container(
+            height: 500,
+            color: Colors.red,
+            child: FutureBuilder(
+                future: servicesApi.getMovies(),
+                builder: (context, index) {
+                  return Container(
+                    height: 200,
+                    color: Colors.yellow,
+                  );
+                }),
+          ),
         ],
       ),
     );
